@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { splitStr } from "../Helper/helperFunc";
 import "./Home.css";
 import {
   Container,
@@ -22,6 +23,8 @@ const Home = () => {
         "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
       );
       const result = await response.json();
+      const arr = [...result.pokemon];
+      console.log(arr[0].type);
       setList([...result.pokemon]);
       setLoading(false);
     } catch (err) {
@@ -46,8 +49,8 @@ const Home = () => {
         <div className="col">
           <InputGroup className="m-5" style={{ width: "35rem" }}>
             <Form.Control
-              placeholder="Recipient's username"
-              aria-label="Recipient's username"
+              placeholder="Pokemon's name"
+              aria-label="Pokemon's name"
               aria-describedby="basic-addon2"
             />
             <Button variant="outline-secondary" id="button-addon2">
@@ -57,7 +60,7 @@ const Home = () => {
         </div>
         {list.map(pokemon => {
           return (
-            <Row>
+            <Row key={pokemon.name + pokemon.id}>
               <Col>
                 <Card className="text-center my-3" style={{ width: "35rem" }}>
                   <Card.Body>
@@ -65,15 +68,19 @@ const Home = () => {
                     <Card.Text>
                       <ListGroup>
                         <ListGroup.Item>{pokemon.num}</ListGroup.Item>
-                        <ListGroup.Item>{pokemon.type}</ListGroup.Item>
-                        <ListGroup.Item>{pokemon.weaknesses}</ListGroup.Item>
+                        <ListGroup.Item>
+                          {splitStr(pokemon.type)}
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                          {splitStr(pokemon.weaknesses)}
+                        </ListGroup.Item>
                       </ListGroup>
                     </Card.Text>
                     <Button
                       variant="primary"
                       onClick={() => goToRoute(pokemon)}
                     >
-                      Go somewhere
+                      More Information
                     </Button>
                   </Card.Body>
                 </Card>
