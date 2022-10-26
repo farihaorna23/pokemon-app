@@ -8,7 +8,8 @@ import {
   Button,
   ListGroup,
   Card,
-  Col
+  Col,
+  Row
 } from "react-bootstrap";
 const Home = () => {
   const [list, setList] = useState([]);
@@ -41,36 +42,43 @@ const Home = () => {
     <h1>Loading...</h1>;
   } else {
     return (
-      <div className="d-sm-flex justify-content-center align-items-center flex-direction-column">
-        <InputGroup className="mb-3" style={{ width: "25rem" }}>
-          <Form.Control
-            placeholder="Recipient's username"
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-          />
-          <Button variant="outline-secondary" id="button-addon2">
-            Button
-          </Button>
-        </InputGroup>
+      <div>
+        <div className="col">
+          <InputGroup className="m-5" style={{ width: "35rem" }}>
+            <Form.Control
+              placeholder="Recipient's username"
+              aria-label="Recipient's username"
+              aria-describedby="basic-addon2"
+            />
+            <Button variant="outline-secondary" id="button-addon2">
+              Button
+            </Button>
+          </InputGroup>
+        </div>
         {list.map(pokemon => {
           return (
-            <div>
-              <Card className="text-center my-3" style={{ width: "18rem" }}>
-                <Card.Body>
-                  <Card.Title>{pokemon.name}</Card.Title>
-                  <Card.Text>
-                    <ListGroup>
-                      <ListGroup.Item>{pokemon.num}</ListGroup.Item>
-                      <ListGroup.Item>{pokemon.type}</ListGroup.Item>
-                      <ListGroup.Item>{pokemon.weaknesses}</ListGroup.Item>
-                    </ListGroup>
-                  </Card.Text>
-                  <Button variant="primary" onClick={() => goToRoute(pokemon)}>
-                    Go somewhere
-                  </Button>
-                </Card.Body>
-              </Card>
-            </div>
+            <Row>
+              <Col>
+                <Card className="text-center my-3" style={{ width: "35rem" }}>
+                  <Card.Body>
+                    <Card.Title>{pokemon.name}</Card.Title>
+                    <Card.Text>
+                      <ListGroup>
+                        <ListGroup.Item>{pokemon.num}</ListGroup.Item>
+                        <ListGroup.Item>{pokemon.type}</ListGroup.Item>
+                        <ListGroup.Item>{pokemon.weaknesses}</ListGroup.Item>
+                      </ListGroup>
+                    </Card.Text>
+                    <Button
+                      variant="primary"
+                      onClick={() => goToRoute(pokemon)}
+                    >
+                      Go somewhere
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
           );
         })}
       </div>
@@ -79,26 +87,3 @@ const Home = () => {
 };
 
 export default Home;
-
-{
-  /* <ListGroup>
-          {list.map(pokemon => {
-            return (
-              <div>
-                <ListGroup.Item className="text-center list">
-                  {pokemon.name}
-                </ListGroup.Item>
-                <ListGroup.Item className="text-center list">
-                  {pokemon.num}
-                </ListGroup.Item>
-                <ListGroup.Item className="text-center list">
-                  {pokemon.type}
-                </ListGroup.Item>
-                <ListGroup.Item className="text-center list">
-                  {pokemon.weaknesses}
-                </ListGroup.Item>
-              </div>
-            );
-          })}
-        </ListGroup> */
-}
