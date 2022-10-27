@@ -6,10 +6,9 @@ const ViewPokemon = () => {
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
+  const [isGeneration, setGeneration] = useState("");
   //id is a string. Convert it.
   const { id } = useParams();
-
   useEffect(() => {
     const getPokemon = async () => {
       try {
@@ -17,6 +16,12 @@ const ViewPokemon = () => {
           "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
         );
         const result = await response.json();
+        const eve = result.pokemon.find(pokemon => pokemon.id === Number(id));
+        setGeneration(
+          eve.hasOwnProperty("next_evolution")
+            ? "next_evolution"
+            : "prev_evolution"
+        );
         setPokemon(result.pokemon.find(pokemon => pokemon.id === Number(id)));
         setLoading(false);
       } catch (err) {
@@ -27,6 +32,12 @@ const ViewPokemon = () => {
 
     getPokemon();
   }, [id]);
+
+  // console.log(pokemon);
+  // const generation = pokemon.hasOwnProperty("next_evolution")
+  //   ? "next_evolution"
+  //   : "prev_evolution";
+  // console.log(generation);
 
   if (loading) {
     return <h1>Loading..</h1>;
@@ -45,7 +56,6 @@ const ViewPokemon = () => {
             <Card style={{ width: "30rem" }}>
               <ListGroup variant="flush">
                 <ListGroup.Item className="text-center">
-                  {" "}
                   Name : {pokemon.name}
                 </ListGroup.Item>
                 <ListGroup.Item className="text-center">
@@ -61,7 +71,7 @@ const ViewPokemon = () => {
                   Weaknesses : {splitStr(pokemon.weaknesses)}
                 </ListGroup.Item>
                 <ListGroup.Item className="text-center">
-                  Evolution : {evolution(pokemon.next_evolution)}
+                  Evolution : {evolution(pokemon[isGeneration])}
                 </ListGroup.Item>
               </ListGroup>
             </Card>
@@ -74,6 +84,4 @@ const ViewPokemon = () => {
 
 export default ViewPokemon;
 
-{
-  /*  */
-}
+//next_evolution
