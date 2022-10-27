@@ -20,6 +20,7 @@ const Home = () => {
   const [type, setType] = useState("");
   const [weakness, setWeakness] = useState("");
   const navigate = useNavigate();
+
   const getPokemon = async () => {
     try {
       const response = await fetch(
@@ -85,15 +86,15 @@ const Home = () => {
               <Col>
                 <Card className="text-center my-3" style={{ width: "35rem" }}>
                   <Card.Body>
-                    <Card.Title>{pokemon.name}</Card.Title>
+                    <Card.Title>Name : {pokemon.name}</Card.Title>
                     <Card.Text>
                       <ListGroup>
-                        <ListGroup.Item>{pokemon.num}</ListGroup.Item>
+                        <ListGroup.Item>Num : {pokemon.num}</ListGroup.Item>
                         <ListGroup.Item>
-                          {splitStr(pokemon.type)}
+                          Type : {splitStr(pokemon.type)}
                         </ListGroup.Item>
                         <ListGroup.Item>
-                          {splitStr(pokemon.weaknesses)}
+                          Weaknesses : {splitStr(pokemon.weaknesses)}
                         </ListGroup.Item>
                       </ListGroup>
                     </Card.Text>

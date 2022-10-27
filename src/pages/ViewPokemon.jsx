@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
 const ViewPokemon = () => {
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -26,7 +25,11 @@ const ViewPokemon = () => {
     getPokemon();
   }, [id]);
 
-  return <></>;
+  return (
+    <div className="bg">
+      <h1>Hello</h1>
+    </div>
+  );
 };
 
 export default ViewPokemon;
