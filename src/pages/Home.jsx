@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { splitStr } from "../Helper/helperFunc";
+import { splitStr, getType } from "../Helper/helperFunc";
 import FormSelect from "../components/FormSelect";
 import "./Home.css";
 import {
-  Container,
   InputGroup,
   Form,
   Button,
@@ -25,8 +24,6 @@ const Home = () => {
         "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
       );
       const result = await response.json();
-      const arr = [...result.pokemon];
-      console.log(arr[0].type);
       setList([...result.pokemon]);
       setLoading(false);
     } catch (err) {
@@ -42,6 +39,8 @@ const Home = () => {
   useEffect(() => {
     getPokemon();
   }, []);
+
+  const type = getType(list);
 
   if (loading) {
     <h1>Loading...</h1>;
@@ -64,7 +63,7 @@ const Home = () => {
             </Button>
           </InputGroup>
         </div>
-        <FormSelect />
+        <FormSelect type={type}></FormSelect>
         {list.map(pokemon => {
           return (
             <Row key={pokemon.name + pokemon.id}>

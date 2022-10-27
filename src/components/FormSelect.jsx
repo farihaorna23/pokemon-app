@@ -5,15 +5,17 @@ const FormSelect = props => {
     <div className="row">
       <Form.Select
         aria-label="Default select example"
+        className="text-center"
         style={{ width: "25rem" }}
       >
         <option>Type</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        {props.type.map(type => {
+          return <option value={type}>{type}</option>;
+        })}
       </Form.Select>
       <Form.Select
         aria-label="Default select example"
+        className="text-center"
         style={{ width: "25rem" }}
       >
         <option>Weakness</option>
