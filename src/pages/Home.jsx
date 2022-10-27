@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { splitStr } from "../Helper/helperFunc";
+import FormSelect from "../components/FormSelect";
 import "./Home.css";
 import {
   Container,
@@ -16,6 +17,7 @@ const Home = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [pokemon, setPokemon] = useState("");
   const navigate = useNavigate();
   const getPokemon = async () => {
     try {
@@ -52,12 +54,17 @@ const Home = () => {
               placeholder="Pokemon's name"
               aria-label="Pokemon's name"
               aria-describedby="basic-addon2"
+              value={pokemon}
+              onChange={e => {
+                setPokemon(e.target.value);
+              }}
             />
             <Button variant="outline-secondary" id="button-addon2">
               Button
             </Button>
           </InputGroup>
         </div>
+        <FormSelect />
         {list.map(pokemon => {
           return (
             <Row key={pokemon.name + pokemon.id}>
