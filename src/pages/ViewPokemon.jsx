@@ -28,6 +28,24 @@ const ViewPokemon = () => {
     getPokemon();
   }, [id]);
 
+  // [{
+  //   "num": "002",
+  //   "name": "Ivysaur"
+  // }, {
+  //   "num": "003",
+  //   "name": "Venusaur"
+  // }]
+
+  const evolution = arr => {
+    let evolName = arr.map(pokemon => pokemon.name);
+    let str = "";
+    evolName.forEach(pokemon => {
+      str = str + pokemon + ",";
+    });
+
+    return str.slice(0, str.lastIndexOf(","));
+  };
+
   if (loading) {
     return <h1>Loading..</h1>;
   } else {
@@ -59,6 +77,9 @@ const ViewPokemon = () => {
                 </ListGroup.Item>
                 <ListGroup.Item className="text-center">
                   Weaknesses : {splitStr(pokemon.weaknesses)}
+                </ListGroup.Item>
+                <ListGroup.Item className="text-center">
+                  Evolution : {evolution(pokemon.next_evolution)}
                 </ListGroup.Item>
               </ListGroup>
             </Card>
