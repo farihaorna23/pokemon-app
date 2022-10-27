@@ -7,18 +7,18 @@ export const splitStr = arr => {
   return str.slice(0, str.lastIndexOf(","));
 };
 
-export const getType = arr => {
-  let type = arr.map(pokemon => {
-    return pokemon.type;
+export const getSelectOptions = (arr, option) => {
+  let options = arr.map(pokemon => {
+    return pokemon[option];
   });
 
-  let destType = [...type];
+  let destOptions = [...options];
   let res = [];
 
-  destType.forEach(type => {
+  destOptions.forEach(type => {
     res.push(...type);
   });
 
-  let uniqueType = new Set(res);
-  return [...uniqueType];
+  let uniqueOptions = new Set(res);
+  return [...uniqueOptions];
 };

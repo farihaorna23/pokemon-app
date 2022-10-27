@@ -19,9 +19,9 @@ const FormSelect = props => {
         style={{ width: "25rem" }}
       >
         <option>Weakness</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        {props.weaknesses.map(weakness => {
+          return <option value={weakness}>{weakness}</option>;
+        })}
       </Form.Select>
     </div>
   );
