@@ -56,8 +56,7 @@ export const filteredPokemon = (
       }
     }
 
-    let result = destWeakness(res, weakness);
-    return result;
+    return destWeakness(res, weakness);
   } else if (type) {
     let res = [];
     for (let i = 0; i < arr.length; i++) {
@@ -67,37 +66,10 @@ export const filteredPokemon = (
         }
       }
     }
-    console.log(res);
     return res;
   } else if (weakness) {
-    console.log(destWeakness(arr, weakness));
     return destWeakness(arr, weakness);
   } else {
-    console.log(arr);
     return arr;
   }
 };
-
-// if (username) {
-//   return arr.filter(pokemon => {
-//     return pokemon.name === username;
-//   });
-// } else if (type && weakness) {
-//   return arr
-//     .filter(pokemon => {
-//       return pokemon.type === type;
-//     })
-//     .filter(pokemon => {
-//       return pokemon.weaknesses === weakness;
-//     });
-// } else if (type) {
-//   return arr.filter(pokemon => {
-//     return pokemon.type === type;
-//   });
-// } else if (weakness) {
-//   return arr.filter(pokemon => {
-//     return pokemon.weaknesses === weakness;
-//   });
-// } else {
-//   return arr;
-// }
