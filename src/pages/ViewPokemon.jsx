@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Card, ListGroup, Container, Row, Col, Image } from "react-bootstrap";
-
+import { splitStr } from "../Helper/helperFunc";
 const ViewPokemon = () => {
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,6 @@ const ViewPokemon = () => {
           "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
         );
         const result = await response.json();
-        //console.log(result.pokemon.find(pokemon => pokemon.id === Number(id)));
         setPokemon(result.pokemon.find(pokemon => pokemon.id === Number(id)));
         setLoading(false);
       } catch (err) {
@@ -29,28 +28,49 @@ const ViewPokemon = () => {
     getPokemon();
   }, [id]);
 
-  return (
-    <Container className="bg">
-      <Row className="justify-content-md-evenly align-items-center">
-        <Col>
-          <Image
-            className="fluid img"
-            src={pokemon.img}
-            style={{ width: "45rem" }}
-          ></Image>
-        </Col>
-        <Col>
-          <Card style={{ width: "30rem" }}>
-            <ListGroup variant="flush">
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
-  );
+  if (loading) {
+    return <h1>Loading..</h1>;
+  } else {
+    return (
+      <Container className="bg">
+        <Row className="justify-content-md-evenly align-items-center">
+          <Col>
+            <Image
+              className="fluid img"
+              src={pokemon.img}
+              style={{ width: "45rem" }}
+            ></Image>
+          </Col>
+          <Col>
+            <Card style={{ width: "30rem" }}>
+              <ListGroup variant="flush">
+                <ListGroup.Item className="text-center">
+                  {" "}
+                  Name : {pokemon.name}
+                </ListGroup.Item>
+                <ListGroup.Item className="text-center">
+                  Height: {pokemon.height}
+                </ListGroup.Item>
+                <ListGroup.Item className="text-center">
+                  Weight: {pokemon.weight}
+                </ListGroup.Item>
+                <ListGroup.Item className="text-center">
+                  Type : {splitStr(pokemon.type)}
+                </ListGroup.Item>
+                <ListGroup.Item className="text-center">
+                  Weaknesses : {splitStr(pokemon.weaknesses)}
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 };
 
 export default ViewPokemon;
+
+{
+  /*  */
+}
