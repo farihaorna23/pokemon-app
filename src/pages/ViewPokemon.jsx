@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Card, ListGroup, Container, Row, Col, Image } from "react-bootstrap";
-import { splitStr } from "../Helper/helperFunc";
+import { splitStr, evolution } from "../Helper/helperFunc";
 const ViewPokemon = () => {
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -27,24 +27,6 @@ const ViewPokemon = () => {
 
     getPokemon();
   }, [id]);
-
-  // [{
-  //   "num": "002",
-  //   "name": "Ivysaur"
-  // }, {
-  //   "num": "003",
-  //   "name": "Venusaur"
-  // }]
-
-  const evolution = arr => {
-    let evolName = arr.map(pokemon => pokemon.name);
-    let str = "";
-    evolName.forEach(pokemon => {
-      str = str + pokemon + ",";
-    });
-
-    return str.slice(0, str.lastIndexOf(","));
-  };
 
   if (loading) {
     return <h1>Loading..</h1>;

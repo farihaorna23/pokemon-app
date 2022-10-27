@@ -7,6 +7,16 @@ export const splitStr = arr => {
   return str.slice(0, str.lastIndexOf(","));
 };
 
+export const evolution = arr => {
+  let evolName = arr.map(pokemon => pokemon.name);
+  let str = "";
+  evolName.forEach(pokemon => {
+    str = str + pokemon + ",";
+  });
+
+  return str.slice(0, str.lastIndexOf(","));
+};
+
 export const getSelectOptions = (arr, option) => {
   let options = arr.map(pokemon => {
     return pokemon[option];
