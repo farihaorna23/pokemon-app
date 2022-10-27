@@ -17,6 +17,8 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [pokemon, setPokemon] = useState("");
+  const [type, setType] = useState("");
+  const [weakness, setWeakness] = useState("");
   const navigate = useNavigate();
   const getPokemon = async () => {
     try {
@@ -36,12 +38,20 @@ const Home = () => {
     navigate(`/pokemon/${pokemon.id}`);
   };
 
+  const typeHandler = type => {
+    setType(type);
+  };
+
+  const weaknessHandler = weakness => {
+    setWeakness(weakness);
+  };
+
   useEffect(() => {
     getPokemon();
   }, []);
 
-  const type = getSelectOptions(list, "type");
-  const weaknesses = getSelectOptions(list, "weaknesses");
+  const getType = getSelectOptions(list, "type");
+  const getWeaknesses = getSelectOptions(list, "weaknesses");
   if (loading) {
     <h1>Loading...</h1>;
   } else {
@@ -63,7 +73,12 @@ const Home = () => {
             </Button>
           </InputGroup>
         </div>
-        <FormSelect type={type} weaknesses={weaknesses}></FormSelect>
+        <FormSelect
+          getType={getType}
+          getWeaknesses={getWeaknesses}
+          typeHandler={typeHandler}
+          weaknessHandler={weaknessHandler}
+        ></FormSelect>
         {list.map(pokemon => {
           return (
             <Row key={pokemon.name + pokemon.id}>
