@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { splitStr, getSelectOptions } from "../Helper/helperFunc";
+import {
+  splitStr,
+  getSelectOptions,
+  filteredPokemon
+} from "../Helper/helperFunc";
 import FormSelect from "../components/FormSelect";
 import "./Home.css";
 import {
@@ -53,6 +57,8 @@ const Home = () => {
 
   const getType = getSelectOptions(list, "type");
   const getWeaknesses = getSelectOptions(list, "weaknesses");
+  const filteredArr = filteredPokemon(list, pokemon, type, weakness);
+
   if (loading) {
     <h1>Loading...</h1>;
   } else {
@@ -80,7 +86,7 @@ const Home = () => {
           typeHandler={typeHandler}
           weaknessHandler={weaknessHandler}
         ></FormSelect>
-        {list.map(pokemon => {
+        {filteredArr.map(pokemon => {
           return (
             <Row key={pokemon.name + pokemon.id}>
               <Col>
