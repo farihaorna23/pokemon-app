@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Card, ListGroup, Container, Row, Col } from "react-bootstrap";
+import { Card, ListGroup, Container, Row, Col, Image } from "react-bootstrap";
 
 const ViewPokemon = () => {
   const [pokemon, setPokemon] = useState(null);
@@ -31,26 +31,21 @@ const ViewPokemon = () => {
 
   return (
     <Container className="bg">
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-md-evenly align-items-center">
         <Col>
-          <Card style={{ width: "35rem" }}>
-            <Card.Img variant="top" src={pokemon.img} />
-            <Card.Body>
-              <Card.Title className="text-center">{pokemon.name}</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
+          <Image
+            className="fluid img"
+            src={pokemon.img}
+            style={{ width: "45rem" }}
+          ></Image>
+        </Col>
+        <Col>
+          <Card style={{ width: "30rem" }}>
+            <ListGroup variant="flush">
               <ListGroup.Item>Cras justo odio</ListGroup.Item>
               <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
               <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
             </ListGroup>
-            <Card.Body>
-              <Card.Link href="#">Card Link</Card.Link>
-              <Card.Link href="#">Another Link</Card.Link>
-            </Card.Body>
           </Card>
         </Col>
       </Row>
