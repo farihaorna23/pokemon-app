@@ -65,6 +65,7 @@ const Home = () => {
   } else {
     return (
       <div>
+        <h1 className="text-center headline">Pokemon</h1>
         <div className="col">
           <InputGroup className="m-5" style={{ width: "35rem" }}>
             <Form.Control

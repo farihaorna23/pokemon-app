@@ -1,5 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Carter+One&family=Noto+Sans+Ethiopic:wght@500&family=Source+Sans+Pro&display=swap");
+
 .col {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.headline {
+  font-size: 3rem;
+  font-family: "Carter One", cursive;
+  padding-top: 3rem;
+}
+
+@media screen and (min-width: 700px) {
+  .headline {
+    font-size: 5rem;
+  }
 }

@@ -51,7 +51,7 @@ const ViewPokemon = () => {
   } else {
     return (
       <Container className="bg">
-        <Row style={{ fontSize: "4.5rem" }}>{pokemon.name}</Row>
+        <h1 className="headline text-center">{pokemon.name}</h1>
         <Row className="justify-content-md-evenly align-items-center">
           <Col>
             <Image
@@ -61,7 +61,7 @@ const ViewPokemon = () => {
             ></Image>
           </Col>
           <Col>
-            <Card style={{ width: "30rem" }}>
+            <Card className="card" style={{ width: "30rem" }}>
               <ListGroup variant="flush">
                 <ListGroup.Item className="text-center">
                   Name : {pokemon.name}
