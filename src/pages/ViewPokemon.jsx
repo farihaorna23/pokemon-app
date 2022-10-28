@@ -14,7 +14,10 @@ const ViewPokemon = () => {
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [isGeneration, setGeneration] = useState("");
+  const [hasNxtGeneration, setHasNxtGeneration] = useState(false);
+  const [hasPrvGeneraion, setHasPrvGeneration] = useState(false);
+  const [nxtGenerationVal, setNxtGenerationVal] = useState("");
+  const [prvGenerationVal, setPrvGenerationVal] = useState("");
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -26,11 +29,21 @@ const ViewPokemon = () => {
         );
         const result = await response.json();
         const eve = result.pokemon.find(pokemon => pokemon.id === Number(id));
-        setGeneration(
-          eve.hasOwnProperty("next_evolution")
-            ? "next_evolution"
-            : "prev_evolution"
-        );
+        if (
+          eve.hasOwnProperty("next_evolution") &&
+          eve.hasOwnProperty("prev_evolution")
+        ) {
+          setHasNxtGeneration(true);
+          setHasPrvGeneration(true);
+          setNxtGenerationVal("next_evolution");
+          setPrvGenerationVal("prev_evolution");
+        } else if (eve.hasOwnProperty("next_evolution")) {
+          setHasNxtGeneration(true);
+          setNxtGenerationVal("next_evolution");
+        } else if (eve.hasOwnProperty("prev_evolution")) {
+          setHasPrvGeneration(true);
+          setPrvGenerationVal("prev_evolution");
+        }
         setPokemon(result.pokemon.find(pokemon => pokemon.id === Number(id)));
         setLoading(false);
       } catch (err) {
@@ -78,9 +91,16 @@ const ViewPokemon = () => {
                 <ListGroup.Item className="text-center">
                   Weaknesses : {splitStr(pokemon.weaknesses)}
                 </ListGroup.Item>
-                <ListGroup.Item className="text-center">
-                  Evolution : {evolution(pokemon[isGeneration])}
-                </ListGroup.Item>
+                {hasNxtGeneration && (
+                  <ListGroup.Item className="text-center">
+                    Next Generation : {evolution(pokemon[nxtGenerationVal])}
+                  </ListGroup.Item>
+                )}
+                {hasPrvGeneraion && (
+                  <ListGroup.Item className="text-center">
+                    Previous Generation : {evolution(pokemon[prvGenerationVal])}
+                  </ListGroup.Item>
+                )}
                 <ListGroup.Item className="text-center">
                   <Button variant="success" onClick={goHome}>
                     Go Home
