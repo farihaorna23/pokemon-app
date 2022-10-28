@@ -16,6 +16,7 @@ import {
   Col,
   Row
 } from "react-bootstrap";
+
 const Home = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);

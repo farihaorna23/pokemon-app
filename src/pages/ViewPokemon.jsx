@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Card, ListGroup, Container, Row, Col, Image } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  Card,
+  ListGroup,
+  Container,
+  Row,
+  Col,
+  Image,
+  Button
+} from "react-bootstrap";
 import { splitStr, evolution } from "../Helper/helperFunc";
 const ViewPokemon = () => {
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [isGeneration, setGeneration] = useState("");
-  //id is a string. Convert it.
+
+  const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
     const getPokemon = async () => {
@@ -33,17 +42,16 @@ const ViewPokemon = () => {
     getPokemon();
   }, [id]);
 
-  // console.log(pokemon);
-  // const generation = pokemon.hasOwnProperty("next_evolution")
-  //   ? "next_evolution"
-  //   : "prev_evolution";
-  // console.log(generation);
+  const goHome = () => {
+    navigate("/");
+  };
 
   if (loading) {
     return <h1>Loading..</h1>;
   } else {
     return (
       <Container className="bg">
+        <Row style={{ fontSize: "4.5rem" }}>{pokemon.name}</Row>
         <Row className="justify-content-md-evenly align-items-center">
           <Col>
             <Image
@@ -73,6 +81,11 @@ const ViewPokemon = () => {
                 <ListGroup.Item className="text-center">
                   Evolution : {evolution(pokemon[isGeneration])}
                 </ListGroup.Item>
+                <ListGroup.Item className="text-center">
+                  <Button variant="success" onClick={goHome}>
+                    Go Home
+                  </Button>
+                </ListGroup.Item>
               </ListGroup>
             </Card>
           </Col>
@@ -83,5 +96,3 @@ const ViewPokemon = () => {
 };
 
 export default ViewPokemon;
-
-//next_evolution
