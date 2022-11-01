@@ -4,7 +4,13 @@ import Home from "./pages/Home";
 import ViewPokemon from "./pages/ViewPokemon";
 function App() {
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{
+        height: "100vh",
+        overflow: "auto"
+      }}
+    >
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}></Route>

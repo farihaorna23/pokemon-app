@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   Card,
   ListGroup,
@@ -11,13 +11,12 @@ import {
 } from "react-bootstrap";
 import { splitStr, evolution } from "../Helper/helperFunc";
 const ViewPokemon = () => {
+  const [pokemonList, setPokemonList] = useState([]);
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [hasNxtGeneration, setHasNxtGeneration] = useState(false);
-  const [hasPrvGeneraion, setHasPrvGeneration] = useState(false);
-  const [nxtGenerationVal, setNxtGenerationVal] = useState("");
-  const [prvGenerationVal, setPrvGenerationVal] = useState("");
+  const [prevGenEvolutions, setPrevGenEvolutions] = useState([]);
+  const [nextGenEvolutions, setNextGenEvolutions] = useState([]);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -28,22 +27,31 @@ const ViewPokemon = () => {
           "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
         );
         const result = await response.json();
+        setPokemonList(result.pokemon);
         const eve = result.pokemon.find(pokemon => pokemon.id === Number(id));
-        if (
-          eve.hasOwnProperty("next_evolution") &&
-          eve.hasOwnProperty("prev_evolution")
-        ) {
-          setHasNxtGeneration(true);
-          setHasPrvGeneration(true);
-          setNxtGenerationVal("next_evolution");
-          setPrvGenerationVal("prev_evolution");
-        } else if (eve.hasOwnProperty("next_evolution")) {
-          setHasNxtGeneration(true);
-          setNxtGenerationVal("next_evolution");
-        } else if (eve.hasOwnProperty("prev_evolution")) {
-          setHasPrvGeneration(true);
-          setPrvGenerationVal("prev_evolution");
+
+        if (eve.next_evolution) {
+          setNextGenEvolutions(
+            eve.next_evolution.map(evolution => {
+              const nextGenObj = result.pokemon.find(
+                pokemon => pokemon.num === evolution.num
+              );
+              return nextGenObj;
+            })
+          );
         }
+
+        if (eve.prev_evolution) {
+          setPrevGenEvolutions(
+            eve.prev_evolution.map(evolution => {
+              const prevGenObj = result.pokemon.find(
+                pokemon => pokemon.num === evolution.num
+              );
+              return prevGenObj;
+            })
+          );
+        }
+
         setPokemon(result.pokemon.find(pokemon => pokemon.id === Number(id)));
         setLoading(false);
       } catch (err) {
@@ -91,14 +99,25 @@ const ViewPokemon = () => {
                 <ListGroup.Item className="text-center">
                   Weaknesses : {splitStr(pokemon.weaknesses)}
                 </ListGroup.Item>
-                {hasNxtGeneration && (
+                {nextGenEvolutions && nextGenEvolutions.length > 0 && (
                   <ListGroup.Item className="text-center">
-                    Next Generation : {evolution(pokemon[nxtGenerationVal])}
+                    Next Generation:
+                    {nextGenEvolutions.map(evolution => (
+                      <Link to={`/pokemon/${evolution.id}`}>
+                        {evolution.name}
+                      </Link>
+                    ))}
                   </ListGroup.Item>
                 )}
-                {hasPrvGeneraion && (
+
+                {prevGenEvolutions && prevGenEvolutions.length > 0 && (
                   <ListGroup.Item className="text-center">
-                    Previous Generation : {evolution(pokemon[prvGenerationVal])}
+                    Previous Generation:
+                    {prevGenEvolutions.map(evolution => (
+                      <Link to={`/pokemon/${evolution.id}`}>
+                        {evolution.name}
+                      </Link>
+                    ))}
                   </ListGroup.Item>
                 )}
                 <ListGroup.Item className="text-center">

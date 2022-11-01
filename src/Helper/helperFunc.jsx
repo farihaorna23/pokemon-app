@@ -9,12 +9,13 @@ export const splitStr = arr => {
 
 export const evolution = arr => {
   let evolName = arr.map(pokemon => pokemon.name);
-  let str = "";
-  evolName.forEach(pokemon => {
-    str = str + pokemon + ",";
-  });
+  // let str = "";
+  // evolName.forEach(pokemon => {
+  //   str = str + pokemon + " ";
+  // });
 
-  return str.slice(0, str.lastIndexOf(","));
+  // return str.slice(0, str.lastIndexOf(" "));
+  return evolName;
 };
 
 export const getSelectOptions = (arr, option) => {
