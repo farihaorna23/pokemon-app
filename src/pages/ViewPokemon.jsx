@@ -19,6 +19,7 @@ const ViewPokemon = () => {
   const [nextGenEvolutions, setNextGenEvolutions] = useState([]);
 
   const navigate = useNavigate();
+  //get the id from the url
   const { id } = useParams();
   useEffect(() => {
     const getPokemon = async () => {
@@ -28,8 +29,14 @@ const ViewPokemon = () => {
         );
         const result = await response.json();
         setPokemonList(result.pokemon);
+
+        //gets that one specific pokemon based on the id
         const eve = result.pokemon.find(pokemon => pokemon.id === Number(id));
 
+        //if that specific pokemon has a next evolution property, then we save that array to the state
+        //eve.next_evolution --> is an array with objects. Each object has the pokemon name and its num.
+        //we will find the entire object of all the next generation pokemon from the master list by matching it will num property
+        //nextGenEvolutions will be the array that holds the entire object of each of the new evolution pokemon
         if (eve.next_evolution) {
           setNextGenEvolutions(
             eve.next_evolution.map(evolution => {
@@ -40,7 +47,7 @@ const ViewPokemon = () => {
             })
           );
         }
-
+        //same for prev_generation
         if (eve.prev_evolution) {
           setPrevGenEvolutions(
             eve.prev_evolution.map(evolution => {
@@ -99,6 +106,7 @@ const ViewPokemon = () => {
                 <ListGroup.Item className="text-center">
                   Weaknesses : {splitStr(pokemon.weaknesses)}
                 </ListGroup.Item>
+                {/* if nextEvolution array exist, then map over the array and create links for each of next evolution pokemon */}
                 {nextGenEvolutions && nextGenEvolutions.length > 0 && (
                   <ListGroup.Item className="text-center">
                     Next Generation:
