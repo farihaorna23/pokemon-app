@@ -9,12 +9,10 @@ import {
   Image,
   Button
 } from "react-bootstrap";
-import { splitStr, evolution } from "../Helper/helperFunc";
+import { splitStr } from "../Helper/helperFunc";
 const ViewPokemon = () => {
-  const [pokemonList, setPokemonList] = useState([]);
   const [pokemon, setPokemon] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [prevGenEvolutions, setPrevGenEvolutions] = useState([]);
   const [nextGenEvolutions, setNextGenEvolutions] = useState([]);
 
@@ -28,7 +26,6 @@ const ViewPokemon = () => {
           "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json"
         );
         const result = await response.json();
-        setPokemonList(result.pokemon);
 
         //gets that one specific pokemon based on the id
         const eve = result.pokemon.find(pokemon => pokemon.id === Number(id));
@@ -63,7 +60,6 @@ const ViewPokemon = () => {
         setLoading(false);
       } catch (err) {
         console.error(err);
-        setError(true);
       }
     };
 
